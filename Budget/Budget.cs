@@ -11,13 +11,37 @@ namespace Budget
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             CurrentAccount instance = CurrentAccount.Instance;
+            int currency = 0;
+            try
+            {
+                currency = Int32.Parse(textBox1.Text);
+            }
+            catch (FormatException ex)
+            {
+                System.Diagnostics.Debug.WriteLine("invalid text to integer conversion");
+            }
+            instance.SubtractAmount(currency);   
             CurrentAccountAmount.Text = instance.amount.ToString();
+            textBox1.Text = "";
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click_1(object sender, EventArgs e)
         {
-
+            CurrentAccount instance = CurrentAccount.Instance;
+            int currency = 0;
+            try
+            {
+                currency = Int32.Parse(textBox1.Text);
+            }
+            catch (FormatException ex)
+            {
+                System.Diagnostics.Debug.WriteLine("invalid text to integer conversion");
+            }
+            instance.AddAmount(currency);
+            CurrentAccountAmount.Text = instance.amount.ToString();
+            textBox1.Text = "";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -34,6 +58,9 @@ namespace Budget
 
             comboBox1.DataSource = reports;
             this.comboBox1.SelectedIndex = 0;
+
+            CurrentAccount instance = CurrentAccount.Instance;
+            CurrentAccountAmount.Text = instance.amount.ToString();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
